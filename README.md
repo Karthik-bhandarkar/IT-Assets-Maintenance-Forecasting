@@ -1,6 +1,6 @@
 # 🛠️ IT Asset Maintenance Forecasting
 
-### 📊 Data Analytics & Forecasting Project using Python, MS SQL & Tableau
+### 📊 Data Analytics & Forecasting Pipeline using Python, MS SQL & Tableau
 
 ![Python](https://img.shields.io/badge/Python-Data%20Analysis-blue)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-orange)
@@ -11,100 +11,104 @@
 
 ## 📘 Project Overview
 
-The **IT Asset Maintenance Forecasting** project focuses on analyzing and forecasting maintenance schedules for organizational IT assets such as laptops, desktops, printers, and network devices.  
-The goal is to **reduce downtime**, **plan maintenance proactively**, and **optimize IT asset lifecycle costs**.
+The **IT Asset Maintenance Forecasting** project analyzes hardware performance, failure patterns, and upcoming service schedules for organizational IT assets (such as laptops, desktops, printers, and network devices).
+
+The objective is to transition from reactive repairs to **predictive and proactive maintenance**, reducing equipment downtime, ensuring uninterrupted business operations, and optimizing lifecycle replacement costs.
 
 ---
 
-## 🧠 Objectives
+## 📁 Repository Structure
 
-- Track and analyze the **current condition of IT assets**
-- Identify **assets due for maintenance** in the next 30 days
-- Analyze **failure and repair patterns**
-- Visualize insights via a **Tableau maintenance dashboard**
-- Support **data-driven maintenance planning**
+| File | Description |
+|------|-------------|
+| **`01_IT_ASSESMENT(raw data).xlsx`** | Original dataset containing IT hardware records, purchase dates, last service dates, and operational status. |
+| **`02_IT Asset Maintenance Forecasting.ipynb`** | Jupyter notebook performing data cleaning, null handling, datetime conversion, feature engineering, and exploratory data analysis. |
+| **`03_IT Asset Maintenance Forecasting(for sql).xlsx`** | Processed and feature-enriched dataset ready for database ingestion. |
+| **`04_SQLQuery5.sql`** | SQL scripts for table schema definition, data staging, aggregate analytics, and 30-day maintenance forecasting queries. |
+| **`05_IT Asset.twbx`** | Packaged Tableau workbook with interactive KPI cards, heatmaps, failure rates, and geographic distribution views. |
+| **`Project Documentation_ IT Asset Maintenance Forecasting.pdf`** | Comprehensive project report and executive documentation. |
+| **`requirements.txt`** | Python library dependencies required to reproduce the notebook analysis. |
+
+---
+
+## 🧠 Key Objectives
+
+- **Asset Health Monitoring**: Track the operational status (`Working` vs. `Under Repair`) across equipment categories.
+- **Predictive Service Planning**: Identify all hardware requiring service within the next **30 days** (`DaysUntilDue < 30`).
+- **Failure Analysis**: Quantify failure rates across equipment types and identify maintenance hotspots by office location.
+- **Executive Dashboarding**: Present real-time actionable insights in Tableau with multi-dimensional filtering.
 
 ---
 
 ## 🧰 Technology Stack
 
 | Component | Technology / Library | Purpose |
-|----------|----------------------|---------|
-| **Programming Language** | Python | Data cleaning & feature engineering |
-| **Libraries** | Pandas, NumPy, Matplotlib, Seaborn | Data processing & visualization |
-| **Database** | Microsoft SQL Server | Centralized data storage |
-| **Visualization** | Tableau | Interactive dashboard creation |
-| **Environment** | Jupyter Notebook / VS Code | Development workspace |
-# IT Asset Maintenance Forecasting
-
-
-## 🚀 Project Workflow
-
-The project is executed in three main phases:
-
-### Phase 1: Data Analysis & Forecasting (Python)
-
-This phase focuses on data preparation, exploratory data analysis (EDA), and identifying key trends for maintenance.
-
-* **Data Cleaning:**
-    * Loaded the `IT_ASSESMENT.xlsx - ITAssets.csv` dataset.
-    * Handled all missing or null values.
-    * Converted `PurchaseDate`, `LastServiceDate`, and `NextServiceDue` to proper datetime objects.
-* **Feature Engineering:**
-    * Created new time-based features:
-        * `AssetAge`: (Current Date - PurchaseDate)
-        * `DaysSinceLastService`: (Current Date - LastServiceDate)
-        * `DaysUntilDue`: (NextServiceDue - Current Date)
-* **Exploratory Data Analysis (EDA):**
-    * Analyzed and plotted the distribution of `AssetType` (Laptop, Printer, etc.).
-    * Calculated the current failure rate by analyzing the `Status` column (`Working` vs. `Under Repair`).
-    * Calculated descriptive statistics for `AssetAge` and `DaysSinceLastService` to understand the average asset lifespan and service cycle.
-* **Maintenance Schedule Analysis:**
-    * Filtered the data to create a list of 'At-Risk' assets (e.g., `DaysUntilDue` < 30 days).
-    * Visualized the count of assets due for maintenance, grouped by `AssetType` and `Location`.
-
-### Phase 2: Database Management (MS SQL)
-
-This phase establishes a centralized SQL database for robust data storage and efficient, reusable querying.
-
-* **Schema Creation:**
-    * Wrote a `CREATE TABLE` script to define the `ITAssets` table with appropriate data types (e.g., `VARCHAR`, `DATE`, `INT`).
-* **Data Ingestion:**
-    * Exported the cleaned DataFrame from Phase 1 to a new CSV.
-    * Used the SQL Server Import Wizard (or `INSERT` commands) to populate the `ITAssets` table.
-* **Aggregate Querying:**
-    * Wrote SQL queries using `COUNT` and `GROUP BY` to analyze asset distribution by `AssetType` and `Location` directly from the database.
-* **'At-Risk' Asset Querying:**
-    * Developed a reusable SQL query using a `WHERE` clause to select all assets due for maintenance within the next 30 days (`WHERE NextServiceDue BETWEEN GETDATE() AND GETDATE() + 30`).
-    * Results are ordered by `NextServiceDue` (ascending) to prioritize the most urgent tasks.
-
-### Phase 3: Visualization & Dashboarding (Tableau)
-
-The final phase involves creating an intuitive and interactive dashboard to communicate maintenance forecasts and asset status to stakeholders.
-
-* **Data Connection:**
-    * Established a live data source connection from Tableau to the MS SQL Server `ITAssets` table.
-* **Core Visualizations:**
-    * **Bar Chart:** Asset Distribution by Type.
-    * **KPI Card:** Total count of 'Assets Due for Maintenance (Next 30 Days)'.
-    * **Packed Bubble Chart:** 'Assets Under Repair' (sized by count, colored by `AssetType`).
-    * **Heatmap:** Asset Type vs. Location (showing count of assets).
-    * **Map:** Geographic visualization of assets by `Location`.
-* **Dashboard Assembly & Interactivity:**
-    * Combined all worksheets into a single, cohesive dashboard.
-    * Implemented "Filter" controls for `Location` and `AssetType`.
-    * Configured filters to apply to all worksheets, allowing managers to drill down into specific data (e.g., see all 'Laptops' in 'Pune' due for service) and have all charts update in real-time.
+|-----------|----------------------|---------|
+| **Programming Language** | Python (>= 3.9) | Data cleaning, transformation & feature engineering |
+| **Libraries** | Pandas, NumPy, Matplotlib, Seaborn, openpyxl | Data processing & exploratory data visualization |
+| **Database** | Microsoft SQL Server | Centralized relational data warehouse & SQL querying |
+| **Visualization** | Tableau Desktop / Reader | Packaged interactive dashboards & executive KPIs |
+| **Environment** | Jupyter Notebook / VS Code | Development & exploratory pipeline execution |
 
 ---
 
-## 🔧 How to Use
+## 🚀 Project Workflow
 
-1.  **Python:** Run the data cleaning and feature engineering scripts (e.g., in a Jupyter Notebook) to produce the cleaned dataset.
-2.  **MS SQL:**
-    * Execute the `CREATE TABLE` script in your SQL Server instance.
-    * Import the cleaned CSV file into the newly created `ITAssets` table.
-    * Use the provided SQL queries to retrieve aggregated insights or 'At-Risk' asset lists.
-3.  **Tableau:**
-    * Open the `.twbx` Tableau workbook.
-    * Edit the data source connection to point to your MS SQL Server instance and the `ITAssets` table.
-    * Interact with the dashboard filters to explore the maintenance schedule.
+### Phase 1: Data Analysis & Feature Engineering (Python)
+- **Data Ingestion & Cleaning**:
+  - Ingested `01_IT_ASSESMENT(raw data).xlsx`.
+  - Audited missing values and standardized datetime fields (`PurchaseDate`, `LastServiceDate`, `NextServiceDue`).
+- **Feature Engineering**:
+  - `AssetAge`: Calculated elapsed days from purchase date to current date.
+  - `DaysSinceLastService`: Calculated days since the previous service event.
+  - `DaysUntilDue`: Forecasted remaining days until the scheduled service due date.
+- **Exploratory Data Analysis (EDA)**:
+  - Distribution and frequency of asset categories.
+  - Breakdown of failure rates by equipment type (`Under Repair` vs `Working`).
+  - Flagged critical at-risk assets where maintenance is due within 30 days.
+- **Export**: Saved cleaned dataset as `03_IT Asset Maintenance Forecasting(for sql).xlsx`.
+
+### Phase 2: Relational Database & SQL Analytics (MS SQL Server)
+- **Schema Creation**: Created structured table `ITAssets` with primary keys and data types (`VARCHAR`, `DATE`, `INT`).
+- **Data Loading**: Populated `ITAssets` from the staged Excel data.
+- **Analytical Queries**:
+  - Aggregated asset counts grouped by `AssetType` and `Location`.
+  - Filtered high-priority assets due in the next 30 days:
+    ```sql
+    SELECT *
+    FROM ITAssets
+    WHERE NextServiceDue BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE())
+    ORDER BY NextServiceDue ASC;
+    ```
+
+### Phase 3: Interactive Dashboarding (Tableau)
+- **Dashboard Highlights**:
+  - **KPI Cards**: Total active assets, assets under repair, and assets due within 30 days.
+  - **Asset Distribution**: Bar chart displaying volume per equipment category.
+  - **Repair Concentration**: Bubble chart illustrating failure frequency by hardware type.
+  - **Location Heatmap**: Cross-tabulation of asset volume across branches and regional offices.
+  - **Global Filters**: Interactive slicing by `Location` and `AssetType`.
+
+---
+
+## 🔧 How to Run
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Swati-Devas/IT-Assets-Maintenance-Forecasting.git
+   cd IT-Assets-Maintenance-Forecasting
+   ```
+
+2. **Set Up Python Environment**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run Data Analysis**:
+   Open and execute `02_IT Asset Maintenance Forecasting.ipynb` in Jupyter Notebook or VS Code.
+
+4. **Load to SQL Database**:
+   Execute the scripts in `04_SQLQuery5.sql` within SQL Server Management Studio (SSMS).
+
+5. **Explore Tableau Dashboard**:
+   Open `05_IT Asset.twbx` using Tableau Desktop or the free Tableau Reader.

@@ -43,4 +43,4 @@ WHERE NextServiceDue BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE());
 -- Upcoming service schedule sorted by nearest due date
 SELECT NextServiceDue
 FROM ITAssets
-ORDER BY NextServiceDue ASC;
+ORDER BY NextServiceDue ASC;
