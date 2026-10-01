@@ -10,13 +10,26 @@
 
 ---
 
-## 🖥️ Executive Dashboard Preview
+## 🖥️ Executive & Operational Dashboards
 
-An enterprise BI decision-support dashboard designed to provide IT infrastructure directors with real-time operational visibility, failure prevalence metrics, and regional asset allocation.
+### 1 · Executive BI View (Tableau Desktop)
+An enterprise BI decision-support dashboard providing IT infrastructure directors with real-time operational visibility, failure prevalence metrics, and regional asset allocation.
 
 ![Tableau Desktop Executive Dashboard](assets/tableau_desktop_screenshot.png)
 
 > **Interactive Workbook**: Available in [`05_IT Asset.twbx`](05_IT%20Asset.twbx). Open with [Tableau Desktop](https://www.tableau.com/products/desktop) or the free [Tableau Reader](https://www.tableau.com/products/reader).
+
+### 2 · Fleet Overview & Operational Health
+![Fleet overview](docs/screenshots/dashboard_fleet_overview.png)
+*Computed directly from the 10,000-row register by [`scripts/make_dashboard.py`](scripts/make_dashboard.py). Highlights hardware mix, volume by delivery center, and dataset-level constraints.*
+
+### 3 · Service Priority Worklist
+![Service priority worklist](docs/screenshots/dashboard_priority_worklist.png)
+*Operational review queue: a rule-based priority queue where **every row states the exact business rule that selected it** (P1 Data Review, P2 Urgent Overdue + Repair, P3 Overdue, P4 Due within 30 days).*
+
+### 4 · Data Quality & Ingestion Monitor
+![Data quality and ingestion monitor](docs/screenshots/dashboard_data_quality.png)
+*Audit results for the raw inventory (5 checks pass, 2 schedule checks warn), rejection logs, and explicit publishable vs. blocked signal status.*
 
 ---
 
