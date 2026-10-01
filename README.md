@@ -1,114 +1,175 @@
-# 🛠️ IT Asset Maintenance Forecasting
+# 🛠️ IT Asset Operations & Reliability Analytics
 
-### 📊 Data Analytics & Forecasting Pipeline using Python, MS SQL & Tableau
+### 📊 End-to-End Enterprise Analytics Pipeline using Python, MS SQL & Tableau
 
-![Python](https://img.shields.io/badge/Python-Data%20Analysis-blue)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-orange)
-![SQL Server](https://img.shields.io/badge/MS%20SQL-Database-green)
-![Tableau](https://img.shields.io/badge/Tableau-Dashboarding-blueviolet)
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?logo=pandas&logoColor=white)
+![MS SQL Server](https://img.shields.io/badge/MS%20SQL-Database%20Warehouse-CC292B?logo=microsoftsqlserver&logoColor=white)
+![Tableau](https://img.shields.io/badge/Tableau-BI%20Dashboarding-E97627?logo=tableau&logoColor=white)
+![Data Quality](https://img.shields.io/badge/Data%20Quality-Audited%20%26%20Verified-success)
+
+---
+
+## 🖥️ Executive Dashboard Preview
+
+An enterprise BI decision-support dashboard designed to provide IT infrastructure directors with real-time operational visibility, failure prevalence metrics, and regional asset allocation.
+
+![IT Asset Operations & Reliability Dashboard](assets/dashboard_overview.png)
+
+> **Interactive Workbook**: Available in [`05_IT Asset.twbx`](05_IT%20Asset.twbx). Open with [Tableau Desktop](https://www.tableau.com/products/desktop) or the free [Tableau Reader](https://www.tableau.com/products/reader).
 
 ---
 
 ## 📘 Project Overview
 
-The **IT Asset Maintenance Forecasting** project analyzes hardware performance, failure patterns, and upcoming service schedules for organizational IT assets (such as laptops, desktops, printers, and network devices).
+This project analyzes the health, distribution, and maintenance workload across **10,000 organizational IT hardware assets** (laptops, monitors, printers, routers, and keyboards) deployed across three primary Indian technology delivery hubs: **Hyderabad, Bangalore, and Pune**.
 
-The objective is to transition from reactive repairs to **predictive and proactive maintenance**, reducing equipment downtime, ensuring uninterrupted business operations, and optimizing lifecycle replacement costs.
+### Primary Business Objectives
+* **Fleet Health Visibility**: Monitor operational status (`Working` vs. `Under Repair` vs. `Decommissioned`) across all asset categories.
+* **Workload & Repair Prevalence**: Quantify repair rates per category to optimize technician assignments and minimize employee downtime.
+* **Centralized Data Warehousing**: Structure raw asset records into a clean relational SQL Server database (`ITAssets`) for declarative querying and BI ingestion.
+* **Data Quality Auditing**: Identify anomalies and limitations in legacy scheduling records to ensure defensible, trustworthy reporting.
 
 ---
 
 ## 📁 Repository Structure
 
-| File | Description |
-|------|-------------|
-| **`01_IT_ASSESMENT(raw data).xlsx`** | Original dataset containing IT hardware records, purchase dates, last service dates, and operational status. |
-| **`02_IT Asset Maintenance Forecasting.ipynb`** | Jupyter notebook performing data cleaning, null handling, datetime conversion, feature engineering, and exploratory data analysis. |
-| **`03_IT Asset Maintenance Forecasting(for sql).xlsx`** | Processed and feature-enriched dataset ready for database ingestion. |
-| **`04_SQLQuery5.sql`** | SQL scripts for table schema definition, data staging, aggregate analytics, and 30-day maintenance forecasting queries. |
-| **`05_IT Asset.twbx`** | Packaged Tableau workbook with interactive KPI cards, heatmaps, failure rates, and geographic distribution views. |
-| **`Project Documentation_ IT Asset Maintenance Forecasting.pdf`** | Comprehensive project report and executive documentation. |
-| **`requirements.txt`** | Python library dependencies required to reproduce the notebook analysis. |
+| File | Type | Description |
+| :--- | :--- | :--- |
+| **[`01_IT_ASSESMENT(raw data).xlsx`](01_IT_ASSESMENT(raw%20data).xlsx)** | Excel | Raw source dataset containing 10,000 hardware inventory records across 7 columns. |
+| **[`02_IT Asset Maintenance Forecasting.ipynb`](02_IT%20Asset%20Maintenance%20Forecasting.ipynb)** | Jupyter | Data cleaning, datetime standardization, feature engineering, and exploratory visualizations. |
+| **[`03_IT Asset Maintenance Forecasting(for sql).xlsx`](03_IT%20Asset%20Maintenance%20Forecasting(for%20sql).xlsx)** | Excel | Processed and feature-enriched dataset ready for SQL Server staging. |
+| **[`04_SQLQuery5.sql`](04_SQLQuery5.sql)** | SQL Script | DDL schema creation, staging data ingestion, aggregate grouping, and schedule filters. |
+| **[`05_IT Asset.twbx`](05_IT%20Asset.twbx)** | Tableau | Packaged workbook with embedded `.hyper` extract and multi-sheet interactive dashboard. |
+| **[`Project Documentation_ IT Asset Maintenance Forecasting.pdf`](Project%20Documentation_%20IT%20Asset%20Maintenance%20Forecasting.pdf)** | PDF | Executive project report and 4-page phase breakdown document. |
+| **[`requirements.txt`](requirements.txt)** | Config | Python package dependencies (`pandas`, `numpy`, `matplotlib`, `seaborn`, `openpyxl`). |
+| **[`assets/`](assets/)** | Media | High-resolution visual assets and executive dashboard previews. |
 
 ---
 
-## 🧠 Key Objectives
+## 📊 Key Analytical Findings
 
-- **Asset Health Monitoring**: Track the operational status (`Working` vs. `Under Repair`) across equipment categories.
-- **Predictive Service Planning**: Identify all hardware requiring service within the next **30 days** (`DaysUntilDue < 30`).
-- **Failure Analysis**: Quantify failure rates across equipment types and identify maintenance hotspots by office location.
-- **Executive Dashboarding**: Present real-time actionable insights in Tableau with multi-dimensional filtering.
+![Fleet Composition & Repair Prevalence](assets/failure_analysis.png)
+
+### 1. Fleet Composition & Balanced Allocation
+The 10,000 hardware units are uniformly balanced across 5 equipment types (~20% each), indicating a standardized equipment provisioning strategy:
+* **Monitors**: 2,015 units (20.15%)
+* **Laptops**: 2,011 units (20.11%)
+* **Printers**: 2,008 units (20.08%)
+* **Routers**: 1,988 units (19.88%)
+* **Keyboards**: 1,978 units (19.78%)
+
+### 2. Current Repair Prevalence by Hardware Category
+Analysis of the `Status` field reveals varying maintenance demands across device types:
+* **Keyboards**: **11.6%** currently under repair *(highest workload intensity)*
+* **Monitors**: **10.7%** currently under repair
+* **Laptops**: **10.3%** currently under repair
+* **Routers**: **9.6%** currently under repair
+* **Printers**: **9.2%** currently under repair
+
+### 3. Geographic Distribution Across Delivery Centers
+Asset allocations are evenly balanced across regional centers, ensuring uniform technician workload:
+* **Bangalore**: 3,376 assets (33.8%)
+* **Pune**: 3,320 assets (33.2%)
+* **Hyderabad**: 3,304 assets (33.0%)
+
+---
+
+## 🔍 Data Quality Audit & Engineering Integrity
+
+In standard professional analytics, auditing source data integrity is just as critical as building visualizations. During the exploratory phase, an audit of the raw dataset uncovered two crucial findings:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        DATA QUALITY AUDIT REPORT                       │
+├────────────────────────────────────────────────────────────────────────┤
+│ 1. Identical Schedule Dates:                                          │
+│    • All 10,000 records share LastServiceDate = 2025-04-29             │
+│    • All 10,000 records share NextServiceDue  = 2025-04-30             │
+│    • Analytical Impact: Filtering DaysUntilDue < 30 on historical      │
+│      snapshots flags 100% of assets as overdue. This was documented     │
+│      as a data-quality limitation rather than a predictive model.      │
+│                                                                        │
+│ 2. Metric Recalibration:                                               │
+│    • Labeling 'Under Repair / Total' as a 'Failure Rate' is inaccurate │
+│      for single-point snapshots.                                       │
+│    • Recalibrated metric to 'Current Repair Prevalence' to reflect      │
+│      operational workload accurately.                                  │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+> **Why this matters**: Rather than hiding these anomalies, our pipeline transparently documents them. This rigor distinguishes senior data analytics from unverified assumptions.
 
 ---
 
 ## 🧰 Technology Stack
 
-| Component | Technology / Library | Purpose |
-|-----------|----------------------|---------|
-| **Programming Language** | Python (>= 3.9) | Data cleaning, transformation & feature engineering |
-| **Libraries** | Pandas, NumPy, Matplotlib, Seaborn, openpyxl | Data processing & exploratory data visualization |
-| **Database** | Microsoft SQL Server | Centralized relational data warehouse & SQL querying |
-| **Visualization** | Tableau Desktop / Reader | Packaged interactive dashboards & executive KPIs |
-| **Environment** | Jupyter Notebook / VS Code | Development & exploratory pipeline execution |
+| Layer | Technology | Role & Purpose |
+| :--- | :--- | :--- |
+| **Data Processing** | Python 3.11+, Pandas, NumPy | Automated cleaning, datetime casting, and feature calculation (`AssetAge`, `DaysSinceLastService`, `DaysUntilDue`). |
+| **Visual Analytics** | Matplotlib, Seaborn | Exploratory data distribution analysis and high-resolution visual reporting. |
+| **Relational Database** | Microsoft SQL Server (T-SQL) | Centralized schema creation, data staging, and aggregate analytics. |
+| **Business Intelligence** | Tableau Desktop / Reader | Packaged executive dashboard (`.twbx`) with interactive multi-sheet filters. |
 
 ---
 
-## 🚀 Project Workflow
+## 🗄️ SQL Analytics Showcase
 
-### Phase 1: Data Analysis & Feature Engineering (Python)
-- **Data Ingestion & Cleaning**:
-  - Ingested `01_IT_ASSESMENT(raw data).xlsx`.
-  - Audited missing values and standardized datetime fields (`PurchaseDate`, `LastServiceDate`, `NextServiceDue`).
-- **Feature Engineering**:
-  - `AssetAge`: Calculated elapsed days from purchase date to current date.
-  - `DaysSinceLastService`: Calculated days since the previous service event.
-  - `DaysUntilDue`: Forecasted remaining days until the scheduled service due date.
-- **Exploratory Data Analysis (EDA)**:
-  - Distribution and frequency of asset categories.
-  - Breakdown of failure rates by equipment type (`Under Repair` vs `Working`).
-  - Flagged critical at-risk assets where maintenance is due within 30 days.
-- **Export**: Saved cleaned dataset as `03_IT Asset Maintenance Forecasting(for sql).xlsx`.
+The SQL warehouse script ([`04_SQLQuery5.sql`](04_SQLQuery5.sql)) creates the production schema and answers key operational queries:
 
-### Phase 2: Relational Database & SQL Analytics (MS SQL Server)
-- **Schema Creation**: Created structured table `ITAssets` with primary keys and data types (`VARCHAR`, `DATE`, `INT`).
-- **Data Loading**: Populated `ITAssets` from the staged Excel data.
-- **Analytical Queries**:
-  - Aggregated asset counts grouped by `AssetType` and `Location`.
-  - Filtered high-priority assets due in the next 30 days:
-    ```sql
-    SELECT *
-    FROM ITAssets
-    WHERE NextServiceDue BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE())
-    ORDER BY NextServiceDue ASC;
-    ```
+```sql
+-- 1. Create table schema
+CREATE TABLE ITAssets (
+    AssetID VARCHAR(50) PRIMARY KEY,
+    AssetType VARCHAR(100),
+    PurchaseDate DATE,
+    LastServiceDate DATE,
+    NextServiceDue DATE,
+    Status VARCHAR(50),
+    Location VARCHAR(100),
+    AssetAge INT,
+    DaysSinceLastService INT,
+    DaysUntilDue INT
+);
 
-### Phase 3: Interactive Dashboarding (Tableau)
-- **Dashboard Highlights**:
-  - **KPI Cards**: Total active assets, assets under repair, and assets due within 30 days.
-  - **Asset Distribution**: Bar chart displaying volume per equipment category.
-  - **Repair Concentration**: Bubble chart illustrating failure frequency by hardware type.
-  - **Location Heatmap**: Cross-tabulation of asset volume across branches and regional offices.
-  - **Global Filters**: Interactive slicing by `Location` and `AssetType`.
+-- 2. Aggregate asset count grouped by hardware category and regional hub
+SELECT 
+    AssetType,
+    Location,
+    COUNT(*) AS TotalAssets
+FROM ITAssets
+GROUP BY AssetType, Location
+ORDER BY AssetType, Location;
+
+-- 3. Query high-priority assets due for service within the next 30 days
+SELECT *
+FROM ITAssets
+WHERE NextServiceDue BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE())
+ORDER BY NextServiceDue ASC;
+```
 
 ---
 
-## 🔧 How to Run
+## 🚀 How to Run & Reproduce
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/Swati-Devas/IT-Assets-Maintenance-Forecasting.git
-   cd IT-Assets-Maintenance-Forecasting
-   ```
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Swati-Devas/IT-Assets-Maintenance-Forecasting.git
+cd IT-Assets-Maintenance-Forecasting
+```
 
-2. **Set Up Python Environment**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 2. Set Up Python Environment
+```bash
+pip install -r requirements.txt
+```
 
-3. **Run Data Analysis**:
-   Open and execute `02_IT Asset Maintenance Forecasting.ipynb` in Jupyter Notebook or VS Code.
+### 3. Run the Data Pipeline & Analysis
+Open and execute the Jupyter Notebook:
+```bash
+jupyter notebook "02_IT Asset Maintenance Forecasting.ipynb"
+```
+* Or execute in VS Code by selecting the Python kernel and clicking **Run All**.
 
-4. **Load to SQL Database**:
-   Execute the scripts in `04_SQLQuery5.sql` within SQL Server Management Studio (SSMS).
-
-5. **Explore Tableau Dashboard**:
-   Open `05_IT Asset.twbx` using Tableau Desktop or the free Tableau Reader.
+### 4. Open the Tableau Dashboard
+* Double-click [`05_IT Asset.twbx`](05_IT%20Asset.twbx) to open the interactive dashboard in **Tableau Desktop** or the free **Tableau Reader**.
+* Use the **Location** and **AssetType** interactive filters to explore operational bottlenecks in real time.
