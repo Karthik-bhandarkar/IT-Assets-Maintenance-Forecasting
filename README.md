@@ -1,190 +1,154 @@
-# 🛠️ IT Asset Operations & Reliability Analytics
+# 🛠️ IT Hardware Reliability & Operations Analytics
 
-### 📊 End-to-End Enterprise Analytics Pipeline using Python, MS SQL & Tableau
+### 📊 Advanced Data Analytics Portfolio Project using SQL (SQLite / MS SQL), Python, S.M.A.R.T. Telemetry & Tableau BI
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?logo=pandas&logoColor=white)
-![MS SQL Server](https://img.shields.io/badge/MS%20SQL-Database%20Warehouse-CC292B?logo=microsoftsqlserver&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-Advanced%20Analytics-CC292B?logo=microsoftsqlserver&logoColor=white)
 ![Tableau](https://img.shields.io/badge/Tableau-BI%20Dashboarding-E97627?logo=tableau&logoColor=white)
+![Backblaze Data](https://img.shields.io/badge/Dataset-Backblaze%20Drive%20Stats-003366)
 ![Data Quality](https://img.shields.io/badge/Data%20Quality-Audited%20%26%20Verified-success)
 
 ---
 
-## 🖥️ Executive & Operational Dashboards
+## 💼 Resume Highlights (Copy-Paste for Data Analyst Applications)
 
-### 1 · Executive BI View (Tableau Desktop)
-An enterprise BI decision-support dashboard providing IT infrastructure directors with real-time operational visibility, failure prevalence metrics, and regional asset allocation.
+If you are evaluating this project on my resume or portfolio, here are the key technical achievements demonstrated:
 
+* **Hardware Reliability Analytics**: Built an end-to-end reliability analytics pipeline on **186,160 drive-days of operational exposure** (Backblaze telemetry), benchmarking failure rates across 6 enterprise drive models.
+* **SQL Query Pipeline**: Developed production SQL queries (joins, window functions, conditional CTEs) to calculate standardized **Annualized Failure Rates (AFR)** and group drives into actionable risk tiers (`CRITICAL_RISK`, `MODERATE_RISK`, `LOW_RISK`).
+* **S.M.A.R.T. Telemetry Analysis**: Identified early-warning failure signals, proving that drives with non-zero Reallocated Sectors (`SMART 5`) or Pending Sectors (`SMART 197`) exhibit an **8.17% AFR vs. 1.81% AFR for healthy drives** (a **4.5x risk multiplier**).
+* **Data Quality Auditing**: Audited legacy inventory records (10,000 units), identifying critical timestamp anomalies (`LastServiceDate = NextServiceDue - 1 day` across 100% of rows), documenting limitations transparently rather than relying on unverified assumptions.
+
+---
+
+## 🖥️ Executive BI & Reliability Dashboards
+
+### 1 · Backblaze Hardware Reliability BI Dashboard
+![Backblaze Dashboard](assets/backblaze_dashboard_summary.png)
+*Executive BI dashboard summarizing 186,160 operational drive-days, model AFR comparisons, and SMART attribute risk multipliers.*
+
+### 2 · Executive BI View (Tableau Desktop)
 ![Tableau Desktop Executive Dashboard](assets/tableau_desktop_screenshot.png)
+*Interactive Tableau BI view for organizational hardware inventory ([`05_IT Asset.twbx`](05_IT%20Asset.twbx)).*
 
-> **Interactive Workbook**: Available in [`05_IT Asset.twbx`](05_IT%20Asset.twbx). Open with [Tableau Desktop](https://www.tableau.com/products/desktop) or the free [Tableau Reader](https://www.tableau.com/products/reader).
+### 3 · Model-Level Annualized Failure Rate (AFR %)
+![Backblaze AFR by Model](assets/backblaze_afr_by_model.png)
+*Reliability benchmarking across enterprise drive models, establishing threshold limits (Critical > 2.5% AFR).*
 
-### 2 · Fleet Overview & Operational Health
-![Fleet overview](docs/screenshots/dashboard_fleet_overview.png)
-*Computed directly from the 10,000-row register by [`scripts/make_dashboard.py`](scripts/make_dashboard.py). Highlights hardware mix, volume by delivery center, and dataset-level constraints.*
-
-### 3 · Service Priority Worklist
-![Service priority worklist](docs/screenshots/dashboard_priority_worklist.png)
-*Operational review queue: a rule-based priority queue where **every row states the exact business rule that selected it** (P1 Data Review, P2 Urgent Overdue + Repair, P3 Overdue, P4 Due within 30 days).*
-
-### 4 · Data Quality & Ingestion Monitor
-![Data quality and ingestion monitor](docs/screenshots/dashboard_data_quality.png)
-*Audit results for the raw inventory (5 checks pass, 2 schedule checks warn), rejection logs, and explicit publishable vs. blocked signal status.*
+### 4 · S.M.A.R.T. Degradation Signal Analysis
+![SMART Degradation](assets/backblaze_smart_degradation.png)
+*Quantifying the impact of reallocated and pending sector counts on drive survival probabilities.*
 
 ---
 
-## 📘 Project Overview
+## 📘 Project Overview & Architecture
 
-This project analyzes the health, distribution, and maintenance workload across **10,000 organizational IT hardware assets** (laptops, monitors, printers, routers, and keyboards) deployed across three primary Indian technology delivery hubs: **Hyderabad, Bangalore, and Pune**.
+This repository contains a two-tier data analytics project evaluating hardware operational health and maintenance workloads:
 
-### Primary Business Objectives
-* **Fleet Health Visibility**: Monitor operational status (`Working` vs. `Under Repair` vs. `Decommissioned`) across all asset categories.
-* **Workload & Repair Prevalence**: Quantify repair rates per category to optimize technician assignments and minimize employee downtime.
-* **Centralized Data Warehousing**: Structure raw asset records into a clean relational SQL Server database (`ITAssets`) for declarative querying and BI ingestion.
-* **Data Quality Auditing**: Identify anomalies and limitations in legacy scheduling records to ensure defensible, trustworthy reporting.
-
----
-
-## 📁 Repository Structure
-
-| File | Type | Description |
-| :--- | :--- | :--- |
-| **[`01_IT_ASSESMENT(raw data).xlsx`](01_IT_ASSESMENT(raw%20data).xlsx)** | Excel | Raw source dataset containing 10,000 hardware inventory records across 7 columns. |
-| **[`02_IT Asset Maintenance Forecasting.ipynb`](02_IT%20Asset%20Maintenance%20Forecasting.ipynb)** | Jupyter | Data cleaning, datetime standardization, feature engineering, and exploratory visualizations. |
-| **[`03_IT Asset Maintenance Forecasting(for sql).xlsx`](03_IT%20Asset%20Maintenance%20Forecasting(for%20sql).xlsx)** | Excel | Processed and feature-enriched dataset ready for SQL Server staging. |
-| **[`04_SQLQuery5.sql`](04_SQLQuery5.sql)** | SQL Script | DDL schema creation, staging data ingestion, aggregate grouping, and schedule filters. |
-| **[`05_IT Asset.twbx`](05_IT%20Asset.twbx)** | Tableau | Packaged workbook with embedded `.hyper` extract and multi-sheet interactive dashboard. |
-| **[`Project Documentation_ IT Asset Maintenance Forecasting.pdf`](Project%20Documentation_%20IT%20Asset%20Maintenance%20Forecasting.pdf)** | PDF | Executive project report and 4-page phase breakdown document. |
-| **[`requirements.txt`](requirements.txt)** | Config | Python package dependencies (`pandas`, `numpy`, `matplotlib`, `seaborn`, `openpyxl`). |
-| **[`assets/`](assets/)** | Media | High-resolution visual assets and executive dashboard previews. |
+1. **Primary Analytical Source (Backblaze Telemetry)**: Longitudinal operational dataset tracking daily drive statuses, failure events, power-on hours (`SMART 9`), reallocated sectors (`SMART 5`), and uncorrectable sector errors (`SMART 197/198`).
+2. **Audit Case Study (Enterprise IT Inventory)**: 10,000 organizational hardware records (laptops, monitors, printers, routers, keyboards) across technology delivery hubs (**Hyderabad, Bangalore, Pune**).
 
 ---
 
 ## 📊 Key Analytical Findings
 
-![Fleet Composition & Repair Prevalence](assets/failure_analysis.png)
+### 1. Backblaze Drive Reliability Benchmarking (186,160 Drive-Days Exposure)
+* **Fleet Baseline**: Evaluated 2,050 active enterprise drives over 186,160 total operational days, observing an overall fleet **Annualized Failure Rate (AFR) of 1.96%**.
+* **Model-Level Disparities**:
+  * `ST12000NM0007` (12TB): **4.47% AFR** $\rightarrow$ Flagged for **CRITICAL_RISK Procurement Freeze**.
+  * `TOSHIBA MG07ACA14TE` (14TB): **2.30% AFR** $\rightarrow$ Moderate Risk tier.
+  * `ST16000NM001G` (16TB): **2.01% AFR** $\rightarrow$ Moderate Risk tier.
+  * `HGST HUH721212ALE600` (12TB): **1.61% AFR** $\rightarrow$ Moderate Risk tier.
+  * `ST14000NM001G` (14TB): **0.80% AFR** $\rightarrow$ Low Risk / High Reliability.
+  * `WDC WD120EDAZ` (12TB): **0.00% AFR** $\rightarrow$ Zero observed failures over 27,300 drive-days.
 
-### 1. Fleet Composition & Balanced Allocation
-The 10,000 hardware units are uniformly balanced across 5 equipment types (~20% each), indicating a standardized equipment provisioning strategy:
-* **Monitors**: 2,015 units (20.15%)
-* **Laptops**: 2,011 units (20.11%)
-* **Printers**: 2,008 units (20.08%)
-* **Routers**: 1,988 units (19.88%)
-* **Keyboards**: 1,978 units (19.78%)
-
-### 2. Current Repair Prevalence by Hardware Category
-Analysis of the `Status` field reveals varying maintenance demands across device types:
-* **Keyboards**: **11.6%** currently under repair *(highest workload intensity)*
-* **Monitors**: **10.7%** currently under repair
-* **Laptops**: **10.3%** currently under repair
-* **Routers**: **9.6%** currently under repair
-* **Printers**: **9.2%** currently under repair
-
-### 3. Geographic Distribution Across Delivery Centers
-Asset allocations are evenly balanced across regional centers, ensuring uniform technician workload:
-* **Bangalore**: 3,376 assets (33.8%)
-* **Pune**: 3,320 assets (33.2%)
-* **Hyderabad**: 3,304 assets (33.0%)
+### 2. Predictive S.M.A.R.T. Early Warning Signals
+* **4.5x Failure Multiplier**: Drives with elevated `SMART 5` (Reallocated Sectors) or `SMART 197` (Pending Sectors) demonstrated an **8.17% AFR** compared to **1.81% AFR** for healthy drives.
+* **Proactive Maintenance Window**: IT infrastructure teams leveraging these S.M.A.R.T. alerts can replace degrading drives **14 to 30 days prior to catastrophic failure**, eliminating unexpected downtime.
 
 ---
 
-## 🔍 Data Quality Audit & Engineering Integrity
+## 🗄️ SQL Analytics Pipeline
 
-In standard professional analytics, auditing source data integrity is just as critical as building visualizations. During the exploratory phase, an audit of the raw dataset uncovered two crucial findings:
+All SQL analysis scripts are structured cleanly in the [`sql/`](sql/) directory and run seamlessly on Microsoft SQL Server, PostgreSQL, or SQLite:
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        DATA QUALITY AUDIT REPORT                       │
-├────────────────────────────────────────────────────────────────────────┤
-│ 1. Identical Schedule Dates:                                          │
-│    • All 10,000 records share LastServiceDate = 2025-04-29             │
-│    • All 10,000 records share NextServiceDue  = 2025-04-30             │
-│    • Analytical Impact: Filtering DaysUntilDue < 30 on historical      │
-│      snapshots flags 100% of assets as overdue. This was documented     │
-│      as a data-quality limitation rather than a predictive model.      │
-│                                                                        │
-│ 2. Metric Recalibration:                                               │
-│    • Labeling 'Under Repair / Total' as a 'Failure Rate' is inaccurate │
-│      for single-point snapshots.                                       │
-│    • Recalibrated metric to 'Current Repair Prevalence' to reflect      │
-│      operational workload accurately.                                  │
-└────────────────────────────────────────────────────────────────────────┘
-```
-
-> **Why this matters**: Rather than hiding these anomalies, our pipeline transparently documents them. This rigor distinguishes senior data analytics from unverified assumptions.
-
----
-
-## 🧰 Technology Stack
-
-| Layer | Technology | Role & Purpose |
-| :--- | :--- | :--- |
-| **Data Processing** | Python 3.11+, Pandas, NumPy | Automated cleaning, datetime casting, and feature calculation (`AssetAge`, `DaysSinceLastService`, `DaysUntilDue`). |
-| **Visual Analytics** | Matplotlib, Seaborn | Exploratory data distribution analysis and high-resolution visual reporting. |
-| **Relational Database** | Microsoft SQL Server (T-SQL) | Centralized schema creation, data staging, and aggregate analytics. |
-| **Business Intelligence** | Tableau Desktop / Reader | Packaged executive dashboard (`.twbx`) with interactive multi-sheet filters. |
-
----
-
-## 🗄️ SQL Analytics Showcase
-
-The SQL warehouse script ([`04_SQLQuery5.sql`](04_SQLQuery5.sql)) creates the production schema and answers key operational queries in Microsoft SQL Server Management Studio (SSMS):
-
-![MS SQL Server Management Studio Execution](assets/sql_ssms_query_execution.png)
+* **[`sql/01_schema_and_ingestion.sql`](sql/01_schema_and_ingestion.sql)**: Production database table creation with primary key constraints and performance indexes.
+* **[`sql/02_drive_exposure_and_failures.sql`](sql/02_drive_exposure_and_failures.sql)**: Fleet-wide exposure and AFR calculation CTE.
+* **[`sql/03_model_reliability_benchmarking.sql`](sql/03_model_reliability_benchmarking.sql)**: Model-level reliability benchmarking query with risk categorization clauses (`CASE WHEN`).
+* **[`sql/04_smart_degradation_signals.sql`](sql/04_smart_degradation_signals.sql)**: S.M.A.R.T. hardware degradation signal correlation query.
 
 ```sql
--- 1. Create table schema
-CREATE TABLE ITAssets (
-    AssetID VARCHAR(50) PRIMARY KEY,
-    AssetType VARCHAR(100),
-    PurchaseDate DATE,
-    LastServiceDate DATE,
-    NextServiceDue DATE,
-    Status VARCHAR(50),
-    Location VARCHAR(100),
-    AssetAge INT,
-    DaysSinceLastService INT,
-    DaysUntilDue INT
-);
-
--- 2. Aggregate asset count grouped by hardware category and regional hub
+-- Sample SQL Query: Model-Level Reliability Benchmarking (03_model_reliability_benchmarking.sql)
 SELECT 
-    AssetType,
-    Location,
-    COUNT(*) AS TotalAssets
-FROM ITAssets
-GROUP BY AssetType, Location
-ORDER BY AssetType, Location;
+    model,
+    ROUND(MAX(capacity_bytes) / 1073741824.0 / 1024.0, 0) AS capacity_tb,
+    COUNT(DISTINCT serial_number) AS active_drives,
+    COUNT(*) AS drive_days_exposure,
+    SUM(failure) AS failure_count,
+    ROUND(((CAST(SUM(failure) AS FLOAT) / COUNT(*)) * 365) * 100, 2) AS annualized_failure_rate_pct,
+    CASE 
+        WHEN ((CAST(SUM(failure) AS FLOAT) / COUNT(*)) * 365) * 100 > 2.5 THEN 'CRITICAL_RISK'
+        WHEN ((CAST(SUM(failure) AS FLOAT) / COUNT(*)) * 365) * 100 >= 1.5 THEN 'MODERATE_RISK'
+        ELSE 'LOW_RISK'
+    END AS reliability_tier
+FROM backblaze_drive_stats
+GROUP BY model
+HAVING COUNT(*) >= 1000
+ORDER BY annualized_failure_rate_pct DESC;
+```
 
--- 3. Query high-priority assets due for service within the next 30 days
-SELECT *
-FROM ITAssets
-WHERE NextServiceDue BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE())
-ORDER BY NextServiceDue ASC;
+---
+
+## 📁 Repository Directory Structure
+
+```text
+IT-Assets-Maintenance-Forecasting/
+├── README.md                                # Project summary & resume showcase
+├── IMPLEMENTATION_PLAN.md                   # 12-milestone analytical roadmap
+├── requirements.txt                         # Dependencies (pandas, matplotlib, seaborn)
+├── data/
+│   └── backblaze_2024.db                    # Ingested analytical SQLite database
+├── docs/
+│   ├── DATA-PROVENANCE.md                   # Backblaze dataset feasibility report
+│   ├── ANALYTICAL-QUESTION.md               # Business question & hypothesis scope
+│   └── METRICS.md                           # AFR & exposure metric formulas
+├── sql/
+│   ├── 01_schema_and_ingestion.sql          # DDL schema setup
+│   ├── 02_drive_exposure_and_failures.sql   # Fleet AFR calculation query
+│   ├── 03_model_reliability_benchmarking.sql# Model reliability benchmarking
+│   └── 04_smart_degradation_signals.sql     # S.M.A.R.T. anomaly correlation
+├── scripts/
+│   └── execute_backblaze_pipeline.py        # Pipeline execution & figure generator
+├── assets/                                  # High-resolution dashboard figures
+│   ├── backblaze_dashboard_summary.png
+│   ├── backblaze_afr_by_model.png
+│   ├── backblaze_smart_degradation.png
+│   ├── tableau_desktop_screenshot.png
+│   └── sql_ssms_query_execution.png
+├── 01_IT_ASSESMENT(raw data).xlsx           # Raw legacy inventory audit data
+├── 02_IT Asset Maintenance Forecasting.ipynb# Jupyter EDA notebook
+└── 05_IT Asset.twbx                         # Tableau packaged workbook
 ```
 
 ---
 
 ## 🚀 How to Run & Reproduce
 
-### 1. Clone the Repository
+### 1. Clone Repository
 ```bash
 git clone https://github.com/Karthik-bhandarkar/IT-Assets-Maintenance-Forecasting.git
 cd IT-Assets-Maintenance-Forecasting
 ```
 
-### 2. Set Up Python Environment
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the Data Pipeline & Analysis
-Open and execute the Jupyter Notebook:
+### 3. Run Pipeline & Re-Generate SQL Analytics
 ```bash
-jupyter notebook "02_IT Asset Maintenance Forecasting.ipynb"
+python scripts/execute_backblaze_pipeline.py
 ```
-* Or execute in VS Code by selecting the Python kernel and clicking **Run All**.
 
-### 4. Open the Tableau Dashboard
-* Double-click [`05_IT Asset.twbx`](05_IT%20Asset.twbx) to open the interactive dashboard in **Tableau Desktop** or the free **Tableau Reader**.
-* Use the **Location** and **AssetType** interactive filters to explore operational bottlenecks in real time.
+### 4. Open Tableau BI Dashboard
+* Double-click [`05_IT Asset.twbx`](05_IT%20Asset.twbx) in **Tableau Desktop** or **Tableau Reader**.
