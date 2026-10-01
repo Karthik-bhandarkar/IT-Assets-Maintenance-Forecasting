@@ -14,7 +14,7 @@
 
 An enterprise BI decision-support dashboard designed to provide IT infrastructure directors with real-time operational visibility, failure prevalence metrics, and regional asset allocation.
 
-![IT Asset Operations & Reliability Dashboard](assets/dashboard_overview.png)
+![Tableau Desktop Executive Dashboard](assets/tableau_desktop_screenshot.png)
 
 > **Interactive Workbook**: Available in [`05_IT Asset.twbx`](05_IT%20Asset.twbx). Open with [Tableau Desktop](https://www.tableau.com/products/desktop) or the free [Tableau Reader](https://www.tableau.com/products/reader).
 
@@ -115,7 +115,9 @@ In standard professional analytics, auditing source data integrity is just as cr
 
 ## 🗄️ SQL Analytics Showcase
 
-The SQL warehouse script ([`04_SQLQuery5.sql`](04_SQLQuery5.sql)) creates the production schema and answers key operational queries:
+The SQL warehouse script ([`04_SQLQuery5.sql`](04_SQLQuery5.sql)) creates the production schema and answers key operational queries in Microsoft SQL Server Management Studio (SSMS):
+
+![MS SQL Server Management Studio Execution](assets/sql_ssms_query_execution.png)
 
 ```sql
 -- 1. Create table schema
