@@ -1,84 +1,133 @@
-# 🛠️ IT Hardware Reliability & Operations Analytics
+# 🛠️ Enterprise IT Hardware Reliability & Operations Analytics
 
-### 📊 Advanced Data Analytics Portfolio Project using SQL (SQLite / MS SQL), Python, S.M.A.R.T. Telemetry & Tableau BI
+### 📊 Advanced Data Analytics Portfolio Project using SQL (T-SQL / SQLite), Python, Telemetry & Tableau BI
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-Interactive%20BI%20App-FF4B4B?logo=streamlit&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-Advanced%20Analytics-CC292B?logo=microsoftsqlserver&logoColor=white)
 ![Tableau](https://img.shields.io/badge/Tableau-BI%20Dashboarding-E97627?logo=tableau&logoColor=white)
-![Backblaze Data](https://img.shields.io/badge/Dataset-Backblaze%20Drive%20Stats-003366)
-![Data Quality](https://img.shields.io/badge/Data%20Quality-Audited%20%26%20Verified-success)
+![Backblaze Telemetry](https://img.shields.io/badge/Dataset-Backblaze%20Drive%20Stats-003366)
+![Data Quality Audit](https://img.shields.io/badge/Data%20Quality-Audited%20%26%20Verified-success)
+![Repo License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ---
 
-## 💼 Resume Highlights (Copy-Paste for Data Analyst Applications)
+## 💼 Resume & Interview Quick-Reference (For Recruiters & Hiring Managers)
 
-If you are evaluating this project on my resume or portfolio, here are the key technical achievements demonstrated:
+If you are evaluating this repository for **Data Analyst**, **BI Analyst**, or **Analytics Engineer** roles, here are the core technical achievements demonstrated in this project:
 
-* **Hardware Reliability Analytics**: Built an end-to-end reliability analytics pipeline on **186,160 drive-days of operational exposure** (Backblaze telemetry), benchmarking failure rates across 6 enterprise drive models.
-* **SQL Query Pipeline**: Developed production SQL queries (joins, window functions, conditional CTEs) to calculate standardized **Annualized Failure Rates (AFR)** and group drives into actionable risk tiers (`CRITICAL_RISK`, `MODERATE_RISK`, `LOW_RISK`).
-* **S.M.A.R.T. Telemetry Analysis**: Identified early-warning failure signals, proving that drives with non-zero Reallocated Sectors (`SMART 5`) or Pending Sectors (`SMART 197`) exhibit an **8.17% AFR vs. 1.81% AFR for healthy drives** (a **4.5x risk multiplier**).
-* **Data Quality Auditing**: Audited legacy inventory records (10,000 units), identifying critical timestamp anomalies (`LastServiceDate = NextServiceDue - 1 day` across 100% of rows), documenting limitations transparently rather than relying on unverified assumptions.
+* **Hardware Reliability Pipeline**: Analyzed **186,160 operational drive-days** of telemetry data across 2,050 enterprise assets, calculating standardized Annualized Failure Rates (AFR) to guide IT maintenance scheduling.
+* **Interactive Streamlit Web Dashboard**: Built a web BI dashboard (`app.py`) allowing stakeholders to filter drive models, set custom critical risk thresholds, and inspect S.M.A.R.T. degradation signals.
+* **Production SQL Queries**: Wrote complex SQL scripts (CTEs, window functions, conditional aggregations, risk categorizations) to aggregate operational exposure and group hardware models into actionable risk tiers (`CRITICAL_RISK` > 2.5% AFR).
+* **Predictive S.M.A.R.T. Signals**: Correlated hardware telemetry parameters (`SMART 5` Reallocated Sectors), proving drives with S.M.A.R.T. anomalies exhibit an **8.17% AFR vs. 1.81% AFR for healthy drives** (a **4.5x failure risk multiplier**), providing a 14-day proactive replacement window.
+* **Data Quality Audit Rigor**: Audited 10,000 internal IT inventory records, uncovering critical timestamp anomalies (`LastServiceDate = NextServiceDue - 1 day` across 100% of records) and documenting data limitations rather than relying on unverified assumptions.
 
 ---
 
-## 🖥️ Executive BI & Reliability Dashboards
+## 🏗️ Analytics Pipeline Architecture
 
-### 1 · Backblaze Hardware Reliability BI Dashboard
+```text
+┌─────────────────────────┐    ┌───────────────────────────┐    ┌───────────────────────────┐
+│  RAW DATA INGESTION     │    │  SQL ANALYTICS WAREHOUSE  │    │  PYTHON TELEMETRY EDA     │
+│  • Backblaze Stats      │───>│  • Exposure Calculation   │───>│  • Survival Probabilities │
+│  • 10k Asset Register   │    │  • Model Benchmarking     │    │  • SMART Correlation      │
+└─────────────────────────┘    └───────────────────────────┘    └───────────────────────────┘
+                                                                              │
+                                                                              ▼
+┌─────────────────────────┐    ┌───────────────────────────┐    ┌───────────────────────────┐
+│ EXECUTIVE SLA DECISIONS │    │  TABLEAU & STREAMLIT BI   │    │  BUSINESS RISK TIERS      │
+│ • Vendor Blacklisting   │<───│  • Interactive App        │<───│  • Critical (AFR > 2.5%)  │
+│ • Proactive Maintenance │    │  • Live Web Filtering     │    │  • Moderate (1.5 - 2.5%)  │
+└─────────────────────────┘    └───────────────────────────┘    └───────────────────────────┘
+```
+
+---
+
+## 🌐 Live Interactive BI Dashboards
+
+### 1 · Streamlit Interactive Web Application (`app.py`)
+Launch the interactive Python BI web app to dynamically filter reliability metrics, adjust critical risk thresholds, and inspect data quality audit tables:
+
+```bash
+streamlit run app.py
+```
+
+---
+
+### 2 · Backblaze Hardware Reliability BI Dashboard
 ![Backblaze Dashboard](assets/backblaze_dashboard_summary.png)
-*Executive BI dashboard summarizing 186,160 operational drive-days, model AFR comparisons, and SMART attribute risk multipliers.*
+*Executive BI view summarizing 186,160 operational drive-days, model AFR comparisons, active monitored drives (2,050 assets), and SMART anomaly risk multipliers.*
 
-### 2 · Executive BI View (Tableau Desktop)
+### 3 · Enterprise Inventory BI (Tableau Desktop / Tableau Public)
 ![Tableau Desktop Executive Dashboard](assets/tableau_desktop_screenshot.png)
-*Interactive Tableau BI view for organizational hardware inventory ([`05_IT Asset.twbx`](05_IT%20Asset.twbx)).*
+*Interactive Tableau BI workbook ([`05_IT Asset.twbx`](05_IT%20Asset.twbx)) visualizing hardware fleet composition across delivery hubs (Bangalore, Pune, Hyderabad).*
 
-### 3 · Model-Level Annualized Failure Rate (AFR %)
+### 4 · Model-Level Annualized Failure Rate (AFR %)
 ![Backblaze AFR by Model](assets/backblaze_afr_by_model.png)
-*Reliability benchmarking across enterprise drive models, establishing threshold limits (Critical > 2.5% AFR).*
+*Reliability benchmarking across enterprise drive models, establishing clear risk thresholds (Critical Threshold > 2.5% AFR).*
 
-### 4 · S.M.A.R.T. Degradation Signal Analysis
+### 5 · S.M.A.R.T. Degradation Anomaly Impact
 ![SMART Degradation](assets/backblaze_smart_degradation.png)
-*Quantifying the impact of reallocated and pending sector counts on drive survival probabilities.*
+*Quantifying the impact of reallocated (`SMART 5`) and pending (`SMART 197`) sector counts on drive failure probabilities.*
 
 ---
 
-## 📘 Project Overview & Architecture
+## 📊 Key Analytical Insights & Empirical Results
 
-This repository contains a two-tier data analytics project evaluating hardware operational health and maintenance workloads:
+### 1. Drive Reliability Benchmarking (186,160 Drive-Days Exposure)
+* **Fleet Baseline**: Across 2,050 enterprise hard drives monitored over 90 days, the overall fleet **Annualized Failure Rate (AFR) was 1.96%**.
+* **Model Reliability Performance**:
 
-1. **Primary Analytical Source (Backblaze Telemetry)**: Longitudinal operational dataset tracking daily drive statuses, failure events, power-on hours (`SMART 9`), reallocated sectors (`SMART 5`), and uncorrectable sector errors (`SMART 197/198`).
-2. **Audit Case Study (Enterprise IT Inventory)**: 10,000 organizational hardware records (laptops, monitors, printers, routers, keyboards) across technology delivery hubs (**Hyderabad, Bangalore, Pune**).
-
----
-
-## 📊 Key Analytical Findings
-
-### 1. Backblaze Drive Reliability Benchmarking (186,160 Drive-Days Exposure)
-* **Fleet Baseline**: Evaluated 2,050 active enterprise drives over 186,160 total operational days, observing an overall fleet **Annualized Failure Rate (AFR) of 1.96%**.
-* **Model-Level Disparities**:
-  * `ST12000NM0007` (12TB): **4.47% AFR** $\rightarrow$ Flagged for **CRITICAL_RISK Procurement Freeze**.
-  * `TOSHIBA MG07ACA14TE` (14TB): **2.30% AFR** $\rightarrow$ Moderate Risk tier.
-  * `ST16000NM001G` (16TB): **2.01% AFR** $\rightarrow$ Moderate Risk tier.
-  * `HGST HUH721212ALE600` (12TB): **1.61% AFR** $\rightarrow$ Moderate Risk tier.
-  * `ST14000NM001G` (14TB): **0.80% AFR** $\rightarrow$ Low Risk / High Reliability.
-  * `WDC WD120EDAZ` (12TB): **0.00% AFR** $\rightarrow$ Zero observed failures over 27,300 drive-days.
-
-### 2. Predictive S.M.A.R.T. Early Warning Signals
-* **4.5x Failure Multiplier**: Drives with elevated `SMART 5` (Reallocated Sectors) or `SMART 197` (Pending Sectors) demonstrated an **8.17% AFR** compared to **1.81% AFR** for healthy drives.
-* **Proactive Maintenance Window**: IT infrastructure teams leveraging these S.M.A.R.T. alerts can replace degrading drives **14 to 30 days prior to catastrophic failure**, eliminating unexpected downtime.
+| Drive Model | Capacity | Active Drives | Drive-Days Exposure | Observed Failures | Annualized Failure Rate (AFR %) | Assigned Risk Tier | Procurement Decision |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Seagate ST12000NM0007** | 12 TB | 450 | 40,799 | 5 | **4.47%** | 🔴 `CRITICAL_RISK` | Procurement Freeze & Immediate Replacement |
+| **Toshiba MG07ACA14TE** | 14 TB | 350 | 31,782 | 2 | **2.30%** | 🟡 `MODERATE_RISK` | Priority Inspection & Daily Monitoring |
+| **Seagate ST16000NM001G** | 16 TB | 200 | 18,136 | 1 | **2.01%** | 🟡 `MODERATE_RISK` | Standard Inspection Window |
+| **HGST HUH721212ALE600** | 12 TB | 250 | 22,705 | 1 | **1.61%** | 🟡 `MODERATE_RISK` | Standard Maintenance Queue |
+| **Seagate ST14000NM001G** | 14 TB | 500 | 45,438 | 1 | **0.80%** | 🟢 `LOW_RISK` | Approved Procurement Model |
+| **WDC WD120EDAZ** | 12 TB | 300 | 27,300 | 0 | **0.00%** | 🟢 `LOW_RISK` | Zero Failures Observed (High Reliability) |
 
 ---
 
-## 🗄️ SQL Analytics Pipeline
+### 2. S.M.A.R.T. Early Warning Signals (4.5x Failure Multiplier)
+* **Degradation Signal**: Drives exhibiting elevated `SMART 5` (Reallocated Sectors) or `SMART 197` (Pending Sectors) demonstrated an **8.17% AFR** compared to **1.81% AFR** for healthy drives.
+* **Actionable Maintenance Window**: Automatically flagging `SMART 5 > 0` provides IT infrastructure teams with a **14 to 30-day proactive maintenance window**, preventing catastrophic data loss and unplanned outages.
 
-All SQL analysis scripts are structured cleanly in the [`sql/`](sql/) directory and run seamlessly on Microsoft SQL Server, PostgreSQL, or SQLite:
+---
 
-* **[`sql/01_schema_and_ingestion.sql`](sql/01_schema_and_ingestion.sql)**: Production database table creation with primary key constraints and performance indexes.
-* **[`sql/02_drive_exposure_and_failures.sql`](sql/02_drive_exposure_and_failures.sql)**: Fleet-wide exposure and AFR calculation CTE.
-* **[`sql/03_model_reliability_benchmarking.sql`](sql/03_model_reliability_benchmarking.sql)**: Model-level reliability benchmarking query with risk categorization clauses (`CASE WHEN`).
-* **[`sql/04_smart_degradation_signals.sql`](sql/04_smart_degradation_signals.sql)**: S.M.A.R.T. hardware degradation signal correlation query.
+## 🔍 Data Quality Audit & Engineering Integrity
+
+In real-world analytics, auditing source data integrity is as crucial as writing queries. During exploratory data analysis on the 10,000-unit organizational inventory file, an audit uncovered a major anomaly:
+
+```text
+┌────────────────────────────────────────────────────────────────────────┐
+│                        DATA QUALITY AUDIT REPORT                       │
+├────────────────────────────────────────────────────────────────────────┤
+│ 1. Identical Schedule Dates:                                          │
+│    • All 10,000 records share LastServiceDate = 2025-04-29             │
+│    • All 10,000 records share NextServiceDue  = 2025-04-30             │
+│    • Impact: Standard filters ('DaysUntilDue < 30') flag 100% of      │
+│      assets as overdue. Documented as a static data quality limitation. │
+│                                                                        │
+│ 2. Metric Recalibration:                                               │
+│    • Relabeled 'Under Repair / Total' from 'Failure Rate' to           │
+│      'Current Repair Prevalence' (10.28%) to maintain reporting rigor. │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🗄️ SQL Analytics Showcase
+
+All production SQL scripts are stored cleanly in [`sql/`](sql/):
+
+* **[`sql/01_schema_and_ingestion.sql`](sql/01_schema_and_ingestion.sql)**: DDL table creation with primary key constraints and indexes.
+* **[`sql/02_drive_exposure_and_failures.sql`](sql/02_drive_exposure_and_failures.sql)**: Aggregating exposure and calculating fleet AFR.
+* **[`sql/03_model_reliability_benchmarking.sql`](sql/03_model_reliability_benchmarking.sql)**: Model reliability query with risk categorization.
+* **[`sql/04_smart_degradation_signals.sql`](sql/04_smart_degradation_signals.sql)**: S.M.A.R.T. anomaly correlation query.
 
 ```sql
--- Sample SQL Query: Model-Level Reliability Benchmarking (03_model_reliability_benchmarking.sql)
+-- Production SQL Query: Model-Level Reliability Benchmarking (sql/03_model_reliability_benchmarking.sql)
 SELECT 
     model,
     ROUND(MAX(capacity_bytes) / 1073741824.0 / 1024.0, 0) AS capacity_tb,
@@ -99,39 +148,6 @@ ORDER BY annualized_failure_rate_pct DESC;
 
 ---
 
-## 📁 Repository Directory Structure
-
-```text
-IT-Assets-Maintenance-Forecasting/
-├── README.md                                # Project summary & resume showcase
-├── IMPLEMENTATION_PLAN.md                   # 12-milestone analytical roadmap
-├── requirements.txt                         # Dependencies (pandas, matplotlib, seaborn)
-├── data/
-│   └── backblaze_2024.db                    # Ingested analytical SQLite database
-├── docs/
-│   ├── DATA-PROVENANCE.md                   # Backblaze dataset feasibility report
-│   ├── ANALYTICAL-QUESTION.md               # Business question & hypothesis scope
-│   └── METRICS.md                           # AFR & exposure metric formulas
-├── sql/
-│   ├── 01_schema_and_ingestion.sql          # DDL schema setup
-│   ├── 02_drive_exposure_and_failures.sql   # Fleet AFR calculation query
-│   ├── 03_model_reliability_benchmarking.sql# Model reliability benchmarking
-│   └── 04_smart_degradation_signals.sql     # S.M.A.R.T. anomaly correlation
-├── scripts/
-│   └── execute_backblaze_pipeline.py        # Pipeline execution & figure generator
-├── assets/                                  # High-resolution dashboard figures
-│   ├── backblaze_dashboard_summary.png
-│   ├── backblaze_afr_by_model.png
-│   ├── backblaze_smart_degradation.png
-│   ├── tableau_desktop_screenshot.png
-│   └── sql_ssms_query_execution.png
-├── 01_IT_ASSESMENT(raw data).xlsx           # Raw legacy inventory audit data
-├── 02_IT Asset Maintenance Forecasting.ipynb# Jupyter EDA notebook
-└── 05_IT Asset.twbx                         # Tableau packaged workbook
-```
-
----
-
 ## 🚀 How to Run & Reproduce
 
 ### 1. Clone Repository
@@ -140,15 +156,26 @@ git clone https://github.com/Karthik-bhandarkar/IT-Assets-Maintenance-Forecastin
 cd IT-Assets-Maintenance-Forecasting
 ```
 
-### 2. Install Dependencies
+### 2. Install Python Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run Pipeline & Re-Generate SQL Analytics
+### 3. Launch Interactive Streamlit BI App
+```bash
+streamlit run app.py
+```
+
+### 4. Run SQL Analytics Pipeline Script
 ```bash
 python scripts/execute_backblaze_pipeline.py
 ```
 
-### 4. Open Tableau BI Dashboard
-* Double-click [`05_IT Asset.twbx`](05_IT%20Asset.twbx) in **Tableau Desktop** or **Tableau Reader**.
+---
+
+## 📌 How to Publish Tableau Workbook to Tableau Public (No Desktop Software Needed!)
+
+1. Go to [public.tableau.com](https://public.tableau.com/) and log in (or create a free account).
+2. Click **Create** $\rightarrow$ **Upload a Viz**.
+3. Drag & drop [`05_IT Asset.twbx`](05_IT%20Asset.twbx) directly into the browser uploader.
+4. Copy your live Tableau Public link and add it to your resume or portfolio website!
