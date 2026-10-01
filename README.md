@@ -154,7 +154,7 @@ ORDER BY NextServiceDue ASC;
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Swati-Devas/IT-Assets-Maintenance-Forecasting.git
+git clone https://github.com/Karthik-bhandarkar/IT-Assets-Maintenance-Forecasting.git
 cd IT-Assets-Maintenance-Forecasting
 ```
 
